@@ -1,24 +1,11 @@
-#!/bin/bash
+docker build -t django:$BUILD_ID .
 
-# Define image name (lowercase)
-IMAGE_NAME="dhanesh772/django"
-TAG="2"
+docker tag django:$BUILD_ID dhanesh772/django:$BUILD_ID
 
-# Build the Docker image
-echo "Building Docker image..."
-docker build -t ${IMAGE_NAME}:${TAG} .
+docker tag django:$BUILD_ID dhanesh772/django:latest
 
-# Verify if the build was successful
-if [ $? -ne 0 ]; then
-    echo "Error: Docker build failed!"
-    exit 1
-fi
+docker push dhanesh772/django:$BUILD_ID
 
-# Run the container
-echo "Running the container..."
-docker run -d --name django_app -p 8000:8000 ${IMAGE_NAME}:${TAG}
+docker push dhanesh772/django:latest
 
-# Check running containers
-echo "Listing running containers..."
-docker ps
-
+docker rmi -f django:$BUILD_ID dhanesh772/django:$BUILD_ID dhanesh772/django:latest
