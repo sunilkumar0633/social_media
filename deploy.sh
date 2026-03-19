@@ -35,6 +35,6 @@ docker run -d \
 
 # Verify
 echo "📦 Running containers:"
-docker ps
+docker ps -a
 
 echo "✅ Deployment completed successfully!"
